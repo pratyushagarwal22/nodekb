@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title Knowledgebase
+        title KnowledgeBase
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet' href='/css/style.css')
     body
@@ -18,8 +18,9 @@ html
                     ul.navbar-nav.mr-auto
                         li.nav-item
                             a.nav-link(href='/') Home
-                        li.nav-item
-                            a.nav-link(href='/articles/add') Add Article
+                        if user
+                            li.nav-item
+                                a.nav-link(href='/articles/add') Add Article
                     ul.navbar-nav.mr-auto.navbar-right
                         if user
                             li.nav-item
