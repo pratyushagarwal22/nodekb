@@ -134,11 +134,15 @@ app.get('/', function(req,res){
     // });
 });
 
+
 // Bringing in the Route Files
+// Article Route
 let articles = require('./routes/articles');
 app.use('/articles', articles);
 
-
+// User Route
+let users = require('./routes/users');
+app.use('/users', users);
 
 
 
