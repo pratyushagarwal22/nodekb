@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database'); // This way it is easy to bring in the connections to the other files as well
 
 // Init App
 const app = express();
@@ -49,8 +51,24 @@ app.use(expressValidator({
 }));
 
 
-//Connect to the database
-mongoose.connect('mongodb://localhost/nodekb');
+// Bringing in the Passport Config - then you need to include middleware to initialize from the Documentation
+require('./config/passport')(passport);
+// Passport Middleware from the Documentation
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Creating a Route that goes to all URLs
+app.get('*', function(req, res, next){
+    res.locals.user = req.user || null;
+    next();
+});
+
+
+
+
+//Connect to the database - after creating ./config/database file we can directly add the edit
+// mongoose.connect('mongodb://localhost/nodekb');
+mongoose.connect(config.database)
 let db = mongoose.connection; //then create the models
 
 // To send a message if we're actually connected
